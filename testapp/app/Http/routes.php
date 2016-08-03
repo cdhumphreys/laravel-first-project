@@ -15,22 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('customers/{id}', function ($id) {
-	$customer = App\Customer::find($id);
-
-	echo 'Customer: ' . $customer->firstname . ' ' . $customer->lastname . ' <br/>';
-	echo 'Orders:' . '<br/>';
-
-	$orders = $customer->orders;
-
-	echo '<ul>';
-	foreach($orders as $order) {
-		echo '<li>' . $order->item . '</li>';
-	}
-	echo '</ul>';
-
-	
-});
+//Pass in the name of a controller and a method of that controller
+Route::get('customers/{id}', 'CustomerController@customerOrders');
 
 Route::get('customer_name', function() {
 	$customer = App\Customer::where('firstname', '=', 'Tony')->first();
@@ -43,7 +29,7 @@ Route::get('orders', function() {
 
 	foreach($orders as $order) {
 		echo $order->item . ' ordered by ' . $order->customer->firstname . '<br />';
-	
+
 	}
 });
 
